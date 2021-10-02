@@ -1,11 +1,12 @@
 from pymongo import MongoClient
 from bson.json_util import loads, dumps
 from datetime import datetime
+from config import CONN_STRING
 
 
 class database():
     def __init__(self):
-        client = MongoClient("mongodb://127.0.0.1:27017")
+        client = MongoClient(CONN_STRING)
         client.admin.command('ismaster')
         self.db_times = client.restaurants.restaurants
         self.data_points = client.restaurants.data_points

@@ -1,8 +1,9 @@
 from pymongo import MongoClient
 from datetime import datetime
 from random import randint
+from config import CONN_STRING
 
-client = MongoClient("mongodb://127.0.0.1:27017")
+client = MongoClient(CONN_STRING)
 client.admin.command('ismaster')
 
 
@@ -19,7 +20,7 @@ def fill_restaurants():
     rest = client.restaurants.restaurants
     rest.delete_many({})
     for i in range(27):
-        rest.insert_one({'res_id': i, "wait_time": 0})
+        rest.insert_one({'res_id': i, "wait_time": 10})
 
 
 def fill_baseline():
