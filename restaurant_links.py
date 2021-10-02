@@ -32,5 +32,5 @@ if __name__ == "__main__":
     for i, link in res_logo_links.items():
         print(i,link)
         img_data = requests.get(link).content
-        with open(f'logos/{i}.{link[-3:]}', 'wb') as handler:
-            handler.write(img_data)
+        with open(f'logos/{i}.{link[-3:]}', 'wb') as file:
+            file.write(img_data)
