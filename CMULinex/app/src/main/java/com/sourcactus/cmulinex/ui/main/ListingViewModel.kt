@@ -16,7 +16,7 @@ class ListingViewModel : ViewModel() {
     }
 
     val nameInfo: LiveData<String> = Transformations.map(_name) {
-        "$it: \n ${_time.value} minutes"
+        "$it (${_index.value}): \n ${_time.value} minutes"
     }
 
     fun setIndex(index: Int) {
