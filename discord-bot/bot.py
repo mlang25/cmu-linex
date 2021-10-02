@@ -142,7 +142,7 @@ async def stop_recording_time(ctx):
         return
     
     embed = discord.Embed(
-        title = f"Times submitted",
+        title = f"Times Submitted to Server",
         colour = discord.Color.green(),
     )
     await ctx.send(embed = embed)
