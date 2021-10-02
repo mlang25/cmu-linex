@@ -29,10 +29,13 @@ class PlaceholderFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_submission, container, false)
-        val textView: TextView = root.findViewById(R.id.section_label)
+        //val textView: TextView = root.findViewById(R.id.section_label)
+        /*
         pageViewModel.text.observe(this, Observer<String> {
             textView.text = it
         })
+
+         */
         return root
     }
 

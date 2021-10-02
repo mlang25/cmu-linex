@@ -48,8 +48,7 @@ class ListingFragment: Fragment() {
     }
 
     fun updateTimes(view: LinearLayout, fragment: ListingFragment) {
-        val url = "https://learning-backend.namanmansukhani.repl.co/send"
-        val namesList: Array<String> = view.context.resources.getStringArray(R.array.restaurants_array)
+        val url = "http://67.207.94.22:5000/send"
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
             { response ->
@@ -67,6 +66,7 @@ class ListingFragment: Fragment() {
                 }
             },
             { error ->
+                error.printStackTrace()
                 // TODO: Handle error
             }
         )
