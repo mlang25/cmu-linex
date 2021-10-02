@@ -2,7 +2,6 @@ from pymongo import MongoClient
 from bson.json_util import loads, dumps
 from datetime import datetime
 from config import CONN_STRING
-import pytz
 
 
 class database:
@@ -13,7 +12,6 @@ class database:
         self.data_points = client.restaurants.data_points
         self.restaurants = client.restaurants.restaurants
         self.business_hours = client.restaurants.business_hours
-        self.est = pytz.timezone("US/Eastern")
 
     def get_all(self) -> dict:
         add_time_c = self.restaurants.find({}).sort([("res_id", 1)])
@@ -49,8 +47,8 @@ class database:
             min_passed = (
                 datetime.utcnow() - i.get("submit_time")
             ).total_seconds() // 60  # get submit time of the data point
-            total_weights += 15 - min_passed  # weight it linearly
-            total_time += i.get("wait") * (15 - min_passed)  # add the average
+            total_weights += 60 - min_passed  # weight it linearly
+            total_time += i.get("wait") * (60 - min_passed)  # add the average
         return total_time / (total_weights)  # return the weighted average
 
     def get_future(self, res_id, iso_datetime):
@@ -85,7 +83,8 @@ class database:
         res_doc = self.business_hours.find_one({"res_id": res_id})
         start_time = res_doc.get("times")[datetime.utcnow().weekday()][0]
         end_time = res_doc.get("times")[datetime.utcnow().weekday()][1]
-        if datetime.utcnow().hour in range(start_time, end_time + 1):
+        current_time = datetime.utcnow().hour + (datetime.utcnow().minute /60)
+        if current_time > start_time and current_time< end_time + 1:
             if datetime.utcnow().hour == end_time:
                 if datetime.utcnow().minute != 0:
                     return False

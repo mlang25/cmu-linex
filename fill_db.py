@@ -13,11 +13,11 @@ def fill_data_points():
     data_points = client.restaurants.create_collection(
         "data_points",
         timeseries={"timeField": "submit_time", "granularity": "seconds"},
-        expireAfterSeconds=900,
+        expireAfterSeconds=3600,
     )
     for i in range(4):
         data_points.insert_one(
-            {"res_id": 1, "wait": randint(10, 20), "submit_time": datetime.utcnow()}
+            {"res_id": 1, "wait": float(randint(10, 20)), "submit_time": datetime.utcnow()}
         )
 
 
@@ -59,7 +59,7 @@ def fill_business_hours():
         business_hours_db.insert_one({"res_id": i, "times": operating_hours})
 
 
-fill_restaurants()
+"""fill_restaurants()
 fill_baseline()
-fill_data_points()
+fill_data_points()"""
 fill_business_hours()
