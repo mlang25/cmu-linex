@@ -22,21 +22,22 @@ class database:
         return times
 
     def insert_one(self, time_dict):
-        self.data_points.insert_one(
-            {
-                "res_id": time_dict.get("res_id"),
-                "wait": time_dict.get("wait_time"),
-                "submit_time": datetime.utcnow(),
-            }
-        )  # insert the datapoint
+        if self.__check_if_open__(time_dict.get("res_id")):
+            self.data_points.insert_one(
+                {
+                    "res_id": time_dict.get("res_id"),
+                    "wait": time_dict.get("wait_time"),
+                    "submit_time": datetime.utcnow(),
+                }
+            )  # insert the datapoint
 
-        calc_waittime = self.__calc_average__(time_dict)
-        newWaitTime = {
-            "$set": {"wait_time": calc_waittime, "res_id": time_dict.get("res_id")}
-        }  # update the restuarant's waittime
-        filter = {"res_id": time_dict.get("res_id")}
-        self.restaurants.update_one(filter, newWaitTime)
-        self.__update_baseline__(calc_waittime, time_dict.get("res_id"))
+            calc_waittime = self.__calc_average__(time_dict)
+            newWaitTime = {
+                "$set": {"wait_time": calc_waittime, "res_id": time_dict.get("res_id")}
+            }  # update the restuarant's waittime
+            filter = {"res_id": time_dict.get("res_id")}
+            self.restaurants.update_one(filter, newWaitTime)
+            self.__update_baseline__(calc_waittime, time_dict.get("res_id"))
 
     def __calc_average__(self, time_dict):
         # get all res_id documents
