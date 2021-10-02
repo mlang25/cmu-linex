@@ -13,9 +13,7 @@ def get_restaurant_info():
     if request.method != 'GET':
         return make_response('Malformed request', 400)
 
-    json_response = {
-        0: 1
-    }
+    json_response = {i:i+1 for i in range(26)}
     return json_response
 
 
@@ -24,6 +22,7 @@ def post_info():
     if request.method != 'POST':
         return make_response('Malformed request', 400)
 
+    data = request.form
     return make_response(
         "works",
         200
