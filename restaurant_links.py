@@ -1,4 +1,5 @@
 import requests
+
 res_logo_links = {
     "0": "https://apps.studentaffairs.cmu.edu/dining/conceptinfo/conceptAssets/logos/ABP_Logo_wTagline_onwht.jpg",
     "1": "https://apps.studentaffairs.cmu.edu/dining/conceptinfo/conceptAssets/logos/BackBarGrill-Logo.jpg",
@@ -25,12 +26,12 @@ res_logo_links = {
     "22": "https://apps.studentaffairs.cmu.edu/dining/conceptinfo/conceptAssets/logos/UG-Mark_Secondary_Brown.jpg",
     "23": "https://apps.studentaffairs.cmu.edu/dining/conceptinfo/conceptAssets/logos/urban%20revolution.png",
     "24": "https://apps.studentaffairs.cmu.edu/dining/conceptinfo/conceptAssets/logos/wildbluelogo.png",
-    "25": "https://apps.studentaffairs.cmu.edu/dining/conceptinfo/conceptAssets/logos/ZebraLounge%202400r300.jpg"
+    "25": "https://apps.studentaffairs.cmu.edu/dining/conceptinfo/conceptAssets/logos/ZebraLounge%202400r300.jpg",
 }
 
 if __name__ == "__main__":
     for i, link in res_logo_links.items():
-        print(i,link)
+        print(i, link)
         img_data = requests.get(link).content
-        with open(f'logos/{i}.{link[-3:]}', 'wb') as handler:
-            handler.write(img_data)
+        with open(f"logos/{i}.{link[-3:]}", "wb") as file:
+            file.write(img_data)
