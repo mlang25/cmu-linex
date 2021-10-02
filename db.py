@@ -14,9 +14,8 @@ class database:
 
     def get_all(self) -> dict:
         add_time_c = self.restaurants.find({}).sort([("res_id", 1)])
-        baseline_c = self.baseline.find({}).sort([("res_id", 1)])
         times = {}
-        for i, j in zip(add_time_c, baseline_c):
+        for i in add_time_c:
             times[int(i.get("res_id"))] = i.get("wait_time")
         return times
 
@@ -53,7 +52,10 @@ class database:
     def get_future(self, res_id, iso_datetime):
         a = self.baseline.find_one({"res_id": res_id})
         # get the time requested by client
-        time = datetime.fromisoformat(iso_datetime)
+        try:
+            time = datetime.fromisoformat(iso_datetime)
+        except ValueError:
+            return "Invalid ISO format"
         day = time.weekday()  # get the day of the week
         print(day)
         hour = time.hour  # get the hour
