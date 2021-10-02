@@ -58,7 +58,7 @@ async def get_restaurant_times(ctx):
         title = f"Currently Open Restaurants - Sorted by Waiting Time",
         colour = discord.Color.green()
     )
-    print(data)
+    # print(data)
     entries = 0
     for i in data:
         temp = ''
