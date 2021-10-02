@@ -26,7 +26,7 @@ def post_info():
     if request.method != "POST":
         return make_response("Malformed request", 400)
 
-    data = request.json
+    data = request.get_json(force=True)
     db.insert_one(data)
     return make_response("works", 200)
 
