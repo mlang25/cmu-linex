@@ -67,6 +67,7 @@ class ListingFragment: Fragment() {
             }
         )
         reqQueue.add(jsonObjectRequest)
+
         /*
         for(i in 1..3) {
             val t = TextView(view.context)
@@ -74,7 +75,9 @@ class ListingFragment: Fragment() {
             t.text = "LINE $i!!!"
             view.addView(t)
         }
+        
          */
+
     }
 
     companion object {
