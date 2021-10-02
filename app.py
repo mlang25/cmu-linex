@@ -12,26 +12,23 @@ def home():
     return "hello"
 
 
-@app.route("/send", methods=['GET'])
+@app.route("/send", methods=["GET"])
 def get_restaurant_info():
-    if request.method != 'GET':
-        return make_response('Malformed request', 400)
+    if request.method != "GET":
+        return make_response("Malformed request", 400)
 
     json_response = db.get_all()
     return json_response
 
 
-@app.route("/submit", methods=['POST'])
+@app.route("/submit", methods=["POST"])
 def post_info():
-    if request.method != 'POST':
-        return make_response('Malformed request', 400)
+    if request.method != "POST":
+        return make_response("Malformed request", 400)
 
     data = request.json
     db.insert_one(data)
-    return make_response(
-        "works",
-        200
-    )
+    return make_response("works", 200)
 
 
 @app.errorhandler(404)
@@ -40,4 +37,4 @@ def not_found():
 
 
 db = database()
-app.run(host="0.0.0.0",port=5000)
+app.run(host="0.0.0.0", port=5000)
