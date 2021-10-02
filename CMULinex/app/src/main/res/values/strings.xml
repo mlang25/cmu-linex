@@ -2,4 +2,32 @@
     <string name="app_name">CMU Linex</string>
     <string name="tab_text_1">Wait Times</string>
     <string name="tab_text_2">Time Submission</string>
+    <string-array name="restaurants_array">
+        <item>AU BON PAIN AT SKIBO CAFE</item>
+        <item>BACK BAR GRILL</item>
+        <item>BEEFSTEAK</item>
+        <item>CARNEGIE MELLON CAFE</item>
+        <item>CUCINA</item>
+        <item>THE EXCHANGE</item>
+        <item>FRESH52</item>
+        <item>EL GALLO DE ORO</item>
+        <item>GRANO</item>
+        <item>HUNAN EXPRESS</item>
+        <item>INNOVATION KITCHEN</item>
+        <item>ROHR CAFE  - LA PRIMA</item>
+        <item>THE MAGGIE MURPH CAFE - ROTHBERG\'S ROASTERS</item>
+        <item>MILLIE\'S COFFEE \'N\' CREAMERY - ROHR COMMONS</item>
+        <item>NOURISH</item>
+        <item>LA PRIMA ESPRESSO</item>
+        <item>ROHR COMMONS - TEPPER EATERY</item>
+        <item>ROOTED</item>
+        <item>RUGE ATRIUM - ROTHBERG\'S ROASTERS II</item>
+        <item>SCHATZ DINING ROOM</item>
+        <item>TAHINI</item>
+        <item>TASTE OF INDIA</item>
+        <item>THE UNDERGROUND</item>
+        <item>URBAN REVOLUTION</item>
+        <item>WILD BLUE SUSHI</item>
+        <item>ZEBRA LOUNGE</item>
+    </string-array>
 </resources>

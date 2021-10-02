@@ -21,5 +21,6 @@
             android:textSize="25dp"
             android:textStyle="bold"
             android:layout_gravity="center"/>
+
     </LinearLayout>
 </ScrollView>

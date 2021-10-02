@@ -42,27 +42,31 @@ class ListingFragment: Fragment() {
 
         val header: TextView = root.findViewById(R.id.header)
         val mainLayout: LinearLayout = root.findViewById(R.id.main_layout)
-        updateTimes(mainLayout)
+        updateTimes(mainLayout, this)
 
         return root
     }
 
-    fun updateTimes(view: LinearLayout) {
+    fun updateTimes(view: LinearLayout, fragment: ListingFragment) {
         val url = "https://learning-backend.namanmansukhani.repl.co/send"
+        val namesList: Array<String> = view.context.resources.getStringArray(R.array.restaurants_array)
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
-            Response.Listener { response ->
+            { response ->
+                System.out.println("EEEEEK " + response.toString())
                 val keys = response.keys()
                 while(keys.hasNext()) {
                     val key = keys.next()
+                    val keyNum = Integer.parseInt(key)
+                    val ft = childFragmentManager.beginTransaction()
                     val value = response.getDouble(key)
-                    val t = TextView(view.context)
-                    t.textSize = 20f
-                    t.text = "Restaurant $key: $value seconds"
-                    view.addView(t)
+                    val item:Fragment = ListItemFragment.newInstance(keyNum, value)
+                    ft.add(R.id.main_layout, item)
+                    ft.commitAllowingStateLoss()
+
                 }
             },
-            Response.ErrorListener { error ->
+            { error ->
                 // TODO: Handle error
             }
         )
@@ -75,7 +79,7 @@ class ListingFragment: Fragment() {
             t.text = "LINE $i!!!"
             view.addView(t)
         }
-        
+
          */
 
     }
