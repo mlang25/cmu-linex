@@ -11,11 +11,11 @@ import androidx.lifecycle.ViewModelProviders
 import com.sourcactus.cmulinex.R
 
 class SubmissionFragment: Fragment() {
-    private lateinit var pageViewModel: PageViewModel
+    private lateinit var pageViewModel: ListingViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pageViewModel = ViewModelProviders.of(this).get(PageViewModel::class.java).apply {
+        pageViewModel = ViewModelProviders.of(this).get(ListingViewModel::class.java).apply {
             setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
         }
     }
