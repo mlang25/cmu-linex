@@ -68,9 +68,9 @@ class database:
             {
                 "$set": {
                     "days."
-                    + str(datetime.now().weekday())
+                    + str(datetime.utcnow().weekday())
                     + "."
-                    + str(datetime.now().hour): newWaitTime
+                    + str(datetime.utcnow().hour): newWaitTime
                 }
             },
         )
