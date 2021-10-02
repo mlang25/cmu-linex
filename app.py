@@ -40,4 +40,4 @@ def not_found():
 
 
 db = database()
-app.run()
+app.run(host="0.0.0.0",port=5000)
