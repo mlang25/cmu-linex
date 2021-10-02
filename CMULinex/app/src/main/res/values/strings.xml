@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CMU Linex</string>
+    <string name="tab_text_1">Wait Times</string>
+    <string name="tab_text_2">Time Submission</string>
+</resources>
