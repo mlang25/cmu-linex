@@ -2,6 +2,7 @@ from pymongo import MongoClient
 from bson.json_util import loads, dumps
 from datetime import datetime
 from config import CONN_STRING
+import pytz
 
 
 class database:
@@ -11,12 +12,15 @@ class database:
         self.baseline = client.restaurants.baseline
         self.data_points = client.restaurants.data_points
         self.restaurants = client.restaurants.restaurants
+        self.business_hours = client.restaurants.business_hours
+        self.est = pytz.timezone("US/Eastern")
 
     def get_all(self) -> dict:
         add_time_c = self.restaurants.find({}).sort([("res_id", 1)])
         times = {}
         for i in add_time_c:
-            times[int(i.get("res_id"))] = i.get("wait_time")
+            if self.__check_if_open__(i.get("res_id")):
+                times[int(i.get("res_id"))] = i.get("wait_time")
         return times
 
     def insert_one(self, time_dict):
@@ -50,16 +54,18 @@ class database:
         return total_time / (total_weights)  # return the weighted average
 
     def get_future(self, res_id, iso_datetime):
-        a = self.baseline.find_one({"res_id": res_id})
-        # get the time requested by client
-        try:
-            time = datetime.fromisoformat(iso_datetime)
-        except ValueError:
-            return "Invalid ISO format"
-        day = time.weekday()  # get the day of the week
-        print(day)
-        hour = time.hour  # get the hour
-        return a.get("days")[day][hour]
+        if self.__check_if_open__(res_id):
+            a = self.baseline.find_one({"res_id": res_id})
+            # get the time requested by client
+            try:
+                time = datetime.fromisoformat(iso_datetime)
+            except ValueError:
+                return "Invalid ISO format"
+            day = time.weekday()  # get the day of the week
+            print(day)
+            hour = time.hour  # get the hour
+            return a.get("days")[day][hour]
+        return None
 
     def __update_baseline__(self, newWaitTime, res_id):
         filter = {"res_id": res_id}
@@ -75,3 +81,13 @@ class database:
             },
         )
 
+    def __check_if_open__(self, res_id):
+        res_doc = self.business_hours.find_one({"res_id": res_id})
+        start_time = res_doc.get("times")[datetime.utcnow().weekday()][0]
+        end_time = res_doc.get("times")[datetime.utcnow().weekday()][1]
+        if datetime.utcnow().hour in range(start_time, end_time + 1):
+            if datetime.utcnow().hour == end_time:
+                if datetime.utcnow().minute != 0:
+                    return False
+            return True
+        return False
