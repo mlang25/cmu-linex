@@ -85,7 +85,11 @@ class database:
         start_time = res_doc.get("times")[datetime.utcnow().weekday()][0]
         end_time = res_doc.get("times")[datetime.utcnow().weekday()][1]
         current_time = datetime.utcnow().hour + (datetime.utcnow().minute /60)
-        if current_time > start_time and current_time< end_time + 1:
+        if current_time <= 4:
+            current_time += 24
+            start_time = res_doc.get("times")[datetime.utcnow().weekday()-1][0]
+            end_time = res_doc.get("times")[datetime.utcnow().weekday()-1][1]
+        if current_time > start_time and current_time< end_time:
             if datetime.utcnow().hour == end_time:
                 if datetime.utcnow().minute != 0:
                     return False
